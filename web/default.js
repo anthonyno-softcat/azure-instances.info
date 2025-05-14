@@ -8,7 +8,7 @@ var g_settings = {};
 
 var g_settings_defaults = {
   cost_duration: 'hourly',
-  region: 'us-central',
+  region: 'uksouth',
   reserved_term: 'yrTerm1Standard.noUpfront',
   min_memory: 0,
   min_vcpus: 0,
@@ -47,7 +47,9 @@ function init_data_table() {
           "memory",
           "gpu_number",
           "max_local_disk",
+          "max_data_disk",
           "max_network",
+          "disk_iops",
           "storage",
           "networkperf",
           "low_priority",
@@ -69,14 +71,13 @@ function init_data_table() {
           "live_migration",
           "vm_generation",
           "max_local_disk",
-          "max_data_disk",
-          "disk_iops",
-          "max_network",
           "storage",
           "networkperf",
           "low_priority",
           "res1year",
-          "res3year"
+          "res3year",
+          "cost-ondemand-linux",
+          "cost-ondemand-mswin"
         ],
         "bVisible": false
       }

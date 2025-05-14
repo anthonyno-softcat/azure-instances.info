@@ -34,11 +34,11 @@ $vmSkus | Select-Object -ExpandProperty Size -Unique | foreach-object {
             "gpu"                     = ""
             "premium_storage"         = [int]$([bool]$($_.capabilities | Where-Object name -eq "PremiumIO" | Select-Object -ExpandProperty value))
             "premium_storage_caching" = ""
-            "live_migration"          = ""
+            "live_migration"          = [int]$([bool]$($_.capabilities | Where-Object name -eq "MemoryPreservingMaintenanceSupported" | Select-Object -ExpandProperty value))
             "vm_generation"           = $_.capabilities | Where-Object name -eq "HyperVGenerations" | Select-Object -ExpandProperty value
             "local_disk"              = $($($_.capabilities | Where-Object name -eq "MaxResourceVolumeMB" | Select-Object -ExpandProperty value) / 1024)
             "max_data_disk"           = $_.capabilities | Where-Object name -eq "MaxDataDiskCount" | Select-Object -ExpandProperty value
-            "iops"                    = "$($_.capabilities | Where-Object name -eq "UncachedDiskIOPS" | Select-Object -ExpandProperty value)/$($($_.capabilities | Where-Object name -eq "UncachedDiskBytesPerSecond" | Select-Object -ExpandProperty value)/(1024*1024))"
+            "iops"                    = "$($_.capabilities | Where-Object name -eq "UncachedDiskIOPS" | Select-Object -ExpandProperty value)/$([math]::ceiling($($($_.capabilities | Where-Object name -eq "UncachedDiskBytesPerSecond" | Select-Object -ExpandProperty value)/(1024*1024) * 8)))"
             "max_nics"                = $_.capabilities | Where-Object name -eq "MaxNetworkInterfaces" | Select-Object -ExpandProperty value
             "expected_network_mbps"   = ""
         }
