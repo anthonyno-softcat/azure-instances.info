@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
   </head>
 
-  <body class="ec2instances">
+  <body class="azureinstances">
     <div class="page-header">
 
       <!-- span class="pull-right">
@@ -18,10 +18,10 @@
       </span -->
 
       
-    <h1>Azure-Instances.info <small>Easy <b>Azure</b> Virtual Machines Comparison</small></h1>
+    <h1>Azure VM Info <small>Easy <b>Azure</b> Virtual Machines Comparison</small></h1>
     
 
-      <p class="pull-right label label-info">Last Update: 2021-03-18 18:09:00 UTC</p>
+      <p class="pull-right label label-info">Last Update: 2025-05-14 07:00:00 UTC</p>
       <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="/">Azure VM</a></li>
         <!-- li role="presentation" class=""><a href="/rds/">RDS</a></li -->
@@ -40,7 +40,7 @@
         <div class="btn-group" id='region-dropdown'>
           <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
             <i class="icon-globe icon-white"></i>
-            Region: <span class="text">us-central</span>
+            Region: <span class="text">uksouth</span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu" id="region-menu">
@@ -137,19 +137,20 @@
     <div class="well">
       <p>
         <strong>Why?</strong>
-        Because it's frustrating to compare instances using Amazon's own <a href="http://aws.amazon.com/ec2/instance-types/" target="_blank">instance type</a>, <a href="http://aws.amazon.com/ec2/pricing/" target="_blank">pricing</a>, and other pages.
+        Because it's frustrating to compare instances using Microsoft's own <a href="https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview" target="_blank">instance type</a>, <a href="https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/" target="_blank">pricing</a>, and other pages.
       </p>
       <p>
         <strong>Who?</strong>
-        It was started by <a href="http://twitter.com/powdahound" target="_blank">@powdahound</a> who created the AWS version (ec2instances.info), rewritten to Microsoft Azure by <a href="https://www.linkedin.com/in/avi-keinan-14828738/" target="_blank">Avi Keinan</a> from <a href="https://www.doit-intl.com/" target="_blank">DoIT International</a>, and awaits your improvements <a href="https://github.com/doitintl/azure-instances.info" target="_blank">on GitHub</a>.
+        It was started by <a href="http://twitter.com/powdahound" target="_blank">@powdahound</a> who created the AWS version (ec2instances.info), originally rewritten to Microsoft Azure by <a href="https://www.linkedin.com/in/avi-keinan-14828738/" target="_blank">Avi Keinan</a> from <a href="https://www.doit-intl.com/" target="_blank">DoIT International</a>, and now maintained by <a href="https://www.linkedin.com/in/anthonynorwood/" target="_blank">Anthony Norwood</a>.
+        <!-- awaits your improvements <a href="https://github.com/doitintl/azure-instances.info" target="_blank">on GitHub</a>. -->
       </p>
       <p>
         <strong>How?</strong>
-        Data is scraped from multiple pages on the AWS site. This was last done at 2021-03-18 18:09:00 UTC.
+        Data is collated and combined from the <a href="https://learn.microsoft.com/en-us/rest/api/compute/resource-skus/list?view=rest-compute-2025-02-01&tabs=HTTP#resourceskucapabilities" target="_blank">Resource Skus - List</a> and the <a href="https://learn.microsoft.com/en-us/rest/api/cost-management/retail-prices/azure-retail-prices#api-response-pagination" target="_blank">Azure Retail Prices</a> REST APIs. This was last done at 2025-05-14 07:00:00 UTC.
       </p>
 
       <p class="bg-warning">
-        <strong>Warning:</strong> This site is not maintained by or affiliated with Microsoft Azure. The data shown is not guaranteed to be accurate or current. Please <a href="http://github.com/doitintl/azure-instances.info/issues">report issues</a> you see.
+        <strong>Warning:</strong> This site is not maintained by or affiliated with Microsoft Azure. The data shown is not guaranteed to be accurate or current. <!--Please <a href="http://github.com/doitintl/azure-instances.info/issues">report issues</a> you see.-->
       </p>
 
     </div>
