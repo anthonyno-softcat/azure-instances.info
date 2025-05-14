@@ -77,7 +77,7 @@ function init_data_table() {
           "res1year",
           "res3year",
           "cost-ondemand-linux",
-          "cost-ondemand-mswin"
+          "cost-ondemand-mswin",
         ],
         "bVisible": false
       }
