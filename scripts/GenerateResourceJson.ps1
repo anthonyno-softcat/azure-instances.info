@@ -1,7 +1,7 @@
-$softcatTenantID = "fbd4347a-3682-41ac-8e52-8a2cbf8dd0dc"
+$tenantID = "fbd4347a-3682-41ac-8e52-8a2cbf8dd0dc"
 
-if ($(Get-AzContext | Select-Object -ExpandProperty Tenant | Select-Object -ExpandProperty Id) -ne $softcatTenantID) {
-    Connect-AzAccount -Tenant $softcatTenantID
+if ($(Get-AzContext | Select-Object -ExpandProperty Tenant | Select-Object -ExpandProperty Id) -ne $tenantID) {
+    Connect-AzAccount -Tenant $tenantID
 }
 
 $accessToken = Get-AzAccessToken -ResourceUrl "https://management.azure.com" -AsSecureString | Select-Object -ExpandProperty Token | ConvertFrom-SecureString -AsPlainText
@@ -37,8 +37,8 @@ $vmSkus | Select-Object -ExpandProperty Size -Unique | foreach-object {
             "live_migration"          = ""
             "vm_generation"           = $_.capabilities | Where-Object name -eq "HyperVGenerations" | Select-Object -ExpandProperty value
             "local_disk"              = $($($_.capabilities | Where-Object name -eq "MaxResourceVolumeMB" | Select-Object -ExpandProperty value) / 1024)
-            "max_data_disk"           = $_.capabilities | Where-Object name -eq "MaxDiskCount" | Select-Object -ExpandProperty value
-            "iops"                    = $_.capabilities | Where-Object name -eq "UncachedDiskIOPS" | Select-Object -ExpandProperty value
+            "max_data_disk"           = $_.capabilities | Where-Object name -eq "MaxDataDiskCount" | Select-Object -ExpandProperty value
+            "iops"                    = "$($_.capabilities | Where-Object name -eq "UncachedDiskIOPS" | Select-Object -ExpandProperty value)/$($($_.capabilities | Where-Object name -eq "UncachedDiskBytesPerSecond" | Select-Object -ExpandProperty value)/(1024*1024))"
             "max_nics"                = $_.capabilities | Where-Object name -eq "MaxNetworkInterfaces" | Select-Object -ExpandProperty value
             "expected_network_mbps"   = ""
         }
@@ -67,13 +67,13 @@ $vmSkus | Select-Object -ExpandProperty Size -Unique | foreach-object {
 
     $linux | Where-Object { $_.reservationTerm -eq "1 Year" } | foreach-object {
         $1yr | Add-Member -MemberType NoteProperty -Name $_.armRegionName -Value $(New-Object PsObject -Property @{
-                "value" = $_.retailPrice
+                "value" = $($_.retailPrice) / 730
             })
     }
 
     $linux | Where-Object { $_.reservationTerm -eq "3 Year" } | foreach-object {
         $3yr | Add-Member -MemberType NoteProperty -Name $_.armRegionName -Value $(New-Object PsObject -Property @{
-                "value" = $_.retailPrice
+                "value" = $($_.retailPrice) / 730
             })
     }
 
@@ -97,3 +97,6 @@ $vmSkus | Select-Object -ExpandProperty Size -Unique | foreach-object {
                 }
             }})
     }
+
+    Write-Output "Writing file to $PsScriptRoot\..\web\azure.json"
+$output | ConvertTo-JSON -Depth 100 | Out-File -FilePath "$PsScriptRoot\..\web\azure.json"
